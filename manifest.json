@@ -13,8 +13,7 @@
 	],
 	"host_permissions": ["<all_urls>"],
 	"background": {
-		"service_worker": "service_worker.js",
-		"type": "module"
+		"service_worker": "service_worker.js"
 	},
 	"options_page": "options.html",
 	"action": {
