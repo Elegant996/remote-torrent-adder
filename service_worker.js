@@ -35,5 +35,5 @@ try {
         "webuiapis/rtorrentXmlRpc.js"
     )
 } catch (e) {
-    console.error(e);
+    console.log(e);
 }
