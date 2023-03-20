@@ -5,13 +5,19 @@
 	"version": "1.3.7",
 	"manifest_version": 3,
 	"description": "Add torrents using several programs' WebUIs",
-	"permissions": ["*://*/*","contextMenus","notifications","tabs","webRequest","webRequestBlocking"],
+	"permissions": [
+		"contextMenus",
+		"notifications",
+		"tabs",
+		"declarativeNetRequest"
+	],
+	"host_permissions": ["<all_urls>"],
 	"background": {
 		"service_worker": "service_worker.js",
 		"type": "module"
 	},
 	"options_page": "options.html",
-	"browser_action": {
+	"action": {
 		"default_icon": {"16":"icons/BitTorrent16-gray.png", "48":"icons/BitTorrent48-gray.png", "128":"icons/BitTorrent128-gray.png"},
 		"default_title": "Remote Torrent Adder"
 	},
