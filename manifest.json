@@ -9,11 +9,12 @@
 		"contextMenus",
 		"notifications",
 		"tabs",
+		"webRequest",
 		"declarativeNetRequest"
 	],
 	"host_permissions": ["<all_urls>"],
 	"background": {
-		"service_worker": "service_worker.js"
+		"service_worker": "miscapis/service_worker.js"
 	},
 	"options_page": "options.html",
 	"action": {
