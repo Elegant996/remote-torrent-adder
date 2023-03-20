@@ -7,7 +7,8 @@
 	"description": "Add torrents using several programs' WebUIs",
 	"permissions": ["*://*/*","contextMenus","notifications","tabs","webRequest","webRequestBlocking"],
 	"background": {
-		"service_worker": "service_worker.js"
+		"service_worker": "service_worker.js",
+		"type": "module"
 	},
 	"options_page": "options.html",
 	"browser_action": {
@@ -28,5 +29,15 @@
 		"all_frames": true
 		}
 	],
-	"web_accessible_resources": [ "icons/White_X_in_red_background.svg", "icons/BitTorrent16.png", "icons/BitTorrent48.png", "icons/BitTorrent128.png", "miscapis/jquery-2.0.3.min.map", "fancybox/*" ]
+	"web_accessible_resources": [{
+		"resources": [
+			"icons/White_X_in_red_background.svg",
+			"icons/BitTorrent16.png",
+			"icons/BitTorrent48.png",
+			"icons/BitTorrent128.png",
+			"miscapis/jquery-2.0.3.min.map",
+			"fancybox/*"
+		],
+		"matches": ["<all_urls>"]
+	}]
 }
