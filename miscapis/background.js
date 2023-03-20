@@ -67,7 +67,7 @@ chrome.tabs.onCreated.addListener(function(tab) {
 /////////////////////////////////////////////////////
 // OVERWRITE THE CLICK-EVENT OF LINKS WE WANT TO GRAB
 /////////////////////////////////////////////////////
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onRequest.addListener(function(request, sender, sendResponse) {
 	var server = JSON.parse(localStorage.getItem("servers"))[0]; // primary server
 	if(request.action == "addTorrent") {
 		if(request.server) {
@@ -82,7 +82,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 			localStorage.setItem(x, request.data[x]);
 		sendResponse({});
 	} else if(request.action == "pageActionToggle") {
-		chrome.browserAction.setIcon({path: {"16":"icons/BitTorrent16.png", "48":"icons/BitTorrent48.png", "128":"icons/BitTorrent128.png"}, tabId: sender.tab.id });
+		chrome.action.setIcon({path: {"16":"icons/BitTorrent16.png", "48":"icons/BitTorrent48.png", "128":"icons/BitTorrent128.png"}, tabId: sender.tab.id });
 		sendResponse({});
 	} else if(request.action == "constructContextMenu") {
 		RTA.constructContextMenu();
@@ -248,7 +248,7 @@ registerAuthenticationListeners();
 /////////////////////////////////////////////////////////
 // register browser action for opening a tab to the webui
 /////////////////////////////////////////////////////////
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function(tab) {
 	const servers = JSON.parse(localStorage.getItem("servers"));
 	if(servers.length > 0) {
 		const server = servers[0];

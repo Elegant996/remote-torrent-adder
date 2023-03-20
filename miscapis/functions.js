@@ -188,19 +188,19 @@ RTA.genericOnClick = function(info, tab) {
 		var server = JSON.parse(localStorage.getItem("servers"))[serverId];
 
 		if (server.flooddirtagask == true && server.client == "flood WebUI") {
-			chrome.tabs.sendRequest(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
+			chrome.runtime.sendMessage(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
 		}
 		else if (server.floodjesecdirtagask == true && server.client == "flood-jesec WebUI") {
-			chrome.tabs.sendRequest(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
+			chrome.runtime.sendMessage(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
 		}
 		else if (server.rutorrentdirlabelask == true && server.client == "ruTorrent WebUI") {
-			chrome.tabs.sendRequest(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
+			chrome.runtime.sendMessage(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
 		}
 		else if (server.qbittorrentdirlabelask == true && server.client == "qBittorrent WebUI") {
-			chrome.tabs.sendRequest(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
+			chrome.runtime.sendMessage(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
 		} 
 		else if (server.qbittorrentv2dirlabelask == true && server.client == "qBittorrent v4.1+ WebUI") {
-			chrome.tabs.sendRequest(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
+			chrome.runtime.sendMessage(tab.id, {"action": "showLabelDirChooser", "url": info.linkUrl, "settings": localStorage, "server": server});
 		} 
 		else {
 			RTA.getTorrent(server, info.linkUrl);

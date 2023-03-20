@@ -251,7 +251,7 @@ function loadMatches() {
 	newSelEl.setAttribute("id", "linkmatches");
 	newSelEl.setAttribute("multiple", "multiple");
 	newSelEl.setAttribute("size", "5");
-	if(localStorage["linkmatches"] != "")
+	if(!!localStorage["linkmatches"])
 		for(key in localStorage["linkmatches"].split("~")) {
 			var newEl = document.createElement("option");
 			newEl.text = localStorage["linkmatches"].split("~")[key];
@@ -411,11 +411,11 @@ function saveServersSettings() {
 
 	localStorage.setItem("servers", JSON.stringify(servers))
 
-	chrome.extension.sendRequest({"action": "constructContextMenu"});
+	chrome.runtime.sendMessage({"action": "constructContextMenu"});
 	
-	chrome.extension.sendRequest({"action": "registerRefererListeners"});
+	chrome.runtime.sendMessage({"action": "registerRefererListeners"});
 	
-	chrome.extension.sendRequest({"action": "registerAuthenticationListeners"});
+	chrome.runtime.sendMessage({"action": "registerAuthenticationListeners"});
 	
 	return servers;
 }
