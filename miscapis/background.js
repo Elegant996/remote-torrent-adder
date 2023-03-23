@@ -67,29 +67,29 @@ chrome.tabs.onCreated.addListener(function(tab) {
 /////////////////////////////////////////////////////
 // OVERWRITE THE CLICK-EVENT OF LINKS WE WANT TO GRAB
 /////////////////////////////////////////////////////
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onRequest.addListener(function(request, sender, sendResponse) {
 	var server = JSON.parse(localStorage.getItem("servers"))[0]; // primary server
-	if(message.action == "addTorrent") {
-		if(message.server) {
-			server = message.server;
+	if(request.action == "addTorrent") {
+		if(request.server) {
+			server = request.server;
 		}
-		RTA.getTorrent(server, message.url, message.label, message.dir, message.referer);
+		RTA.getTorrent(server, request.url, request.label, request.dir);
 		sendResponse({});
-	} else if(message.action == "getStorageData") {
+	} else if(request.action == "getStorageData") {
 		sendResponse(localStorage);
-	} else if(message.action == "setStorageData") {
-		for(x in message.data)
-			localStorage.setItem(x, message.data[x]);
+	} else if(request.action == "setStorageData") {
+		for(x in request.data)
+			localStorage.setItem(x, request.data[x]);
 		sendResponse({});
-	} else if(message.action == "pageActionToggle") {
+	} else if(request.action == "pageActionToggle") {
 		chrome.action.setIcon({path: {"16":"icons/BitTorrent16.png", "48":"icons/BitTorrent48.png", "128":"icons/BitTorrent128.png"}, tabId: sender.tab.id });
 		sendResponse({});
-	} else if(message.action == "constructContextMenu") {
+	} else if(request.action == "constructContextMenu") {
 		RTA.constructContextMenu();
 		sendResponse({});
-	} else if(message.action == "registerRefererListeners") {
+	} else if(request.action == "registerRefererListeners") {
 		registerReferrerHeaderListeners();
-	} else if(message.action == "registerAuthenticationListeners") {
+	} else if(request.action == "registerAuthenticationListeners") {
 		registerAuthenticationListeners();
 	} 
 });

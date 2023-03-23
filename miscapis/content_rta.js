@@ -90,12 +90,12 @@ function registerLinks(response) {
 }
 
 // register a listener that'll display the dir/label selection dialog
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	if(message.action == "showLabelDirChooser" && message.url && message.settings) {
+chrome.runtime.onRequest.addListener(function(request, sender, sendResponse) {
+	if(request.action == "showLabelDirChooser" && request.url && request.settings) {
 		var modals = rta_modal_init();
 		rta_modal_open = modals[0];
 		rta_modal_close = modals[1];
-		showLabelDirChooser(message.settings, message.url, message.server);
+		showLabelDirChooser(request.settings, request.url, request.server);
 		sendResponse({});
 	}
 });
