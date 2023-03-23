@@ -25,7 +25,7 @@ RTA.clients.floodJesecAdder = function(server, torrentdata, tags, dir) {
 			};
 			if(torrentdata.substring(0,7) == "magnet:") {
 				apiUrl += "/api/torrents/add-urls";
-				fetchOpts.body = JSON.stringify({ "urls": [ torrentdata ], "start": !paused, "tags": (!!tags ? tags.split(',') : []), "destination": (!!dir ? dir : undefined), "isBasePath": false, "isCompleted": false });
+				fetchOpts.body = JSON.stringify({ "urls": [ torrentdata ], "start": !paused, "tags": (!!tags ? tags.split(',') : []), "destination": (!!dir ? dir : undefined), "isBasePath": false, "isCompleted": false, "isSequential": false });
 			} else {
 				const dataBlob = RTA.convertToBlob(torrentdata, "application/x-bittorrent");
 
@@ -40,6 +40,7 @@ RTA.clients.floodJesecAdder = function(server, torrentdata, tags, dir) {
 					"destination": (!!dir ? dir : undefined), 
 					"isBasePath": false, 
 					"isCompleted": false,
+					"isSequential": false,
 					"files": [
 						b64file
 					]
@@ -50,6 +51,9 @@ RTA.clients.floodJesecAdder = function(server, torrentdata, tags, dir) {
 			.then(RTA.handleFetchError)
 			.then(response => {
 				if(response.status == 200) {
+					RTA.displayResponse("Success", "Torrent added successfully.");
+				}
+				else if (response.status == 202) {
 					RTA.displayResponse("Success", "Torrent added successfully.");
 				} else {
 					RTA.displayResponse("Failure", "Torrent not added successfully:\n" + text);
