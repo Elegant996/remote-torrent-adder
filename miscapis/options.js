@@ -251,7 +251,7 @@ function loadMatches() {
 	newSelEl.setAttribute("id", "linkmatches");
 	newSelEl.setAttribute("multiple", "multiple");
 	newSelEl.setAttribute("size", "5");
-	if(localStorage["linkmatches"] != "")
+	if(!!localStorage["linkmatches"])
 		for(key in localStorage["linkmatches"].split("~")) {
 			var newEl = document.createElement("option");
 			newEl.text = localStorage["linkmatches"].split("~")[key];
