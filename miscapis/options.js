@@ -411,11 +411,11 @@ function saveServersSettings() {
 
 	localStorage.setItem("servers", JSON.stringify(servers))
 
-	chrome.runtime.sendRequest({"action": "constructContextMenu"});
+	chrome.runtime.sendMessage({"action": "constructContextMenu"});
 	
-	chrome.runtime.sendRequest({"action": "registerRefererListeners"});
+	chrome.runtime.sendMessage({"action": "registerRefererListeners"});
 	
-	chrome.runtime.sendRequest({"action": "registerAuthenticationListeners"});
+	chrome.runtime.sendMessage({"action": "registerAuthenticationListeners"});
 	
 	return servers;
 }

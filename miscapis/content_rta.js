@@ -1,6 +1,6 @@
 var rta_modal_open, rta_modal_close;
 
-chrome.runtime.sendRequest({"action": "getStorageData"}, function(response) {
+chrome.runtime.sendMessage({"action": "getStorageData"}, function(response) {
 	var delay = 0;
 	if(response["registerDelay"] > 0) {
 		delay = response["registerDelay"];
@@ -50,7 +50,7 @@ function registerLinks(response) {
 		var modals = rta_modal_init();
 		rta_modal_open = modals[0];
 		rta_modal_close = modals[1];
-		if(response["linksfoundindicator"]=="true") chrome.runtime.sendRequest({"action": "pageActionToggle"});
+		if(response["linksfoundindicator"]=="true") chrome.runtime.sendMessage({"action": "pageActionToggle"});
 		
 		for(key in links) {
 			if(links[key].addEventListener) {
@@ -80,7 +80,7 @@ function registerLinks(response) {
 						else {
 							var ref = new URL(window.location);
 							ref.hash = '';
-							chrome.runtime.sendResponse({"action": "addTorrent", "url": url, "label": undefined, "dir": undefined, "referer": ref.toString()});
+							chrome.runtime.sendMessage({"action": "addTorrent", "url": url, "label": undefined, "dir": undefined, "referer": ref.toString()});
 						}
 					}
 				});
@@ -174,7 +174,7 @@ function showLabelDirChooser(settings, url, theServer) {
 		
 		var ref = new URL(window.location);
 		ref.hash = '';
-		chrome.runtime.sendRequest({"action": "addTorrent", "url": url, "label": targetLabel, "dir": targetDir, "server": server, "referer": ref.toString()});
+		chrome.runtime.sendMessage({"action": "addTorrent", "url": url, "label": targetLabel, "dir": targetDir, "server": server, "referer": ref.toString()});
 		
 		setNewSettings(settings, dirlist, labellist, targetDir, targetLabel, serverIndex);
 		
@@ -184,7 +184,7 @@ function showLabelDirChooser(settings, url, theServer) {
 	};
 
 	function setNewSettings(settings, baseDirs, baseLabels, newDir, newLabel, serverIndex) {
-		chrome.runtime.sendRequest({"action": "getStorageData"}, function(response) {
+		chrome.runtime.sendMessage({"action": "getStorageData"}, function(response) {
 			var servers = JSON.parse(response.servers);
 			var server;
 			if(!serverIndex) {
@@ -217,7 +217,7 @@ function showLabelDirChooser(settings, url, theServer) {
 			servers[serverIndex] = server;
 			settings.servers = JSON.stringify(servers);
 
-			chrome.runtime.sendRequest({"action": "setStorageData", "data": settings});
+			chrome.runtime.sendMessage({"action": "setStorageData", "data": settings});
 		});
 	}
 }
