@@ -78,7 +78,9 @@ function registerLinks(response) {
 							showLabelDirChooser(response, url);
 						}
 						else {
-							chrome.runtime.sendMessage({"action": "addTorrent", "url": url, "label": undefined, "dir": undefined});
+							var ref = new URL(window.location);
+							ref.hash = '';
+							chrome.runtime.sendMessage({"action": "addTorrent", "url": url, "label": undefined, "dir": undefined, "referer": ref.toString()});
 						}
 					}
 				});
@@ -170,7 +172,9 @@ function showLabelDirChooser(settings, url, theServer) {
 		var targetLabel = (inputLabel=="")? ((selectedLabel==null)? "" : selectedLabel) : inputLabel;
 		var targetDir = (inputDir=="")? ((selectedDir==null)? "" : selectedDir) : inputDir;
 		
-		chrome.runtime.sendMessage({"action": "addTorrent", "url": url, "label": targetLabel, "dir": targetDir, "server": server});
+		var ref = new URL(window.location);
+		ref.hash = '';
+		chrome.runtime.sendMessage({"action": "addTorrent", "url": url, "label": targetLabel, "dir": targetDir, "server": server, "referer": ref.toString()});
 		
 		setNewSettings(settings, dirlist, labellist, targetDir, targetLabel, serverIndex);
 		
