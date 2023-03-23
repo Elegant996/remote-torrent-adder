@@ -13,17 +13,17 @@ function registerLinks(response) {
 	
 	// handle common links
 	var links = new Array();
-	var rL = document.getElementsByTagName('a');
-	res = response["linkmatches"].split("~");
-	res.push("magnet:");
-	if(response["linkmatches"] != "") {
-		for(lkey in rL) {
-		for(mkey in res) {
-			if(rL[lkey].href && rL[lkey].href.match(new RegExp(res[mkey], "g"))) {
-				links.push(rL[lkey]);
-				break;
+	if(!!response["linkmatches"]) {
+		var res = response["linkmatches"].split("~");
+		res.push("magnet:");
+		for(lkey in document.getElementsByTagName('a')) {
+			for(mkey in res) {
+				if(rL[lkey].href && rL[lkey].href.match(new RegExp(res[mkey], "g"))) {
+					links.push(rL[lkey]);
+					break;
+				}
 			}
-		}}
+		}
 	}
 	
 	// handle forms
