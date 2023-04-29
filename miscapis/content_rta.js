@@ -16,10 +16,10 @@ function registerLinks(response) {
 	if(!!response["linkmatches"]) {
 		var res = response["linkmatches"].split("~");
 		res.push("magnet:");
-		for(lkey in document.getElementsByTagName('a')) {
-			for(mkey in res) {
-				if(rL[lkey].href && rL[lkey].href.match(new RegExp(res[mkey], "g"))) {
-					links.push(rL[lkey]);
+		for(rL of document.getElementsByTagName('a')) {
+			for(m of res) {
+				if(rL.href && rL.href.match(new RegExp(m, "g"))) {
+					links.push(rL);
 					break;
 				}
 			}
