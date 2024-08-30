@@ -50,7 +50,7 @@ RTA.clients.floodJesecAdder = function(server, torrentdata, tags, dir) {
 			fetch(apiUrl, fetchOpts)
 			.then(RTA.handleFetchError)
 			.then(response => {
-				if(response.status == 200) {
+				if(response.status >= 200 && response.status < 300) {
 					RTA.displayResponse("Success", "Torrent added successfully.");
 				}
 				else if (response.status == 202) {
